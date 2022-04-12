@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:need_dl/supervisor_screen.dart';
 import 'package:need_dl/user_screen.dart';
 import 'package:need_dl/worker_screen.dart';
+import 'package:need_dl/signup_page.dart';
 
 enum SingingCharacter { User, Worker, Supervisor }
 
@@ -210,7 +211,12 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => signup()),
+                  );
+              },
             ),
             SizedBox(height: 10),
             GestureDetector(
