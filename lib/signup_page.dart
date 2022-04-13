@@ -49,7 +49,7 @@ class _signupState extends State<signup> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Fill your details to sign up with NeedDL",
+                "Fill in your details to sign up with NeedDL",
                 style: TextStyle(fontSize: 13, color: Colors.grey),
               ),
             ),

@@ -55,7 +55,7 @@ class _supervisorState extends State<supervisor> {
                         gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            colors: [Colors.amberAccent, Colors.white12]),
+                            colors: [Colors.amberAccent, Colors.orange]),
                         borderRadius: BorderRadius.circular(50),
                         color: Colors.amber),
                     tabs: [
