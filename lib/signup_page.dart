@@ -8,6 +8,8 @@ class signup extends StatefulWidget {
 }
 
 class _signupState extends State<signup> {
+  String dropdownvalue = 'User';
+  var items = ['User', 'Worker', 'Supervisor'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,49 +61,7 @@ class _signupState extends State<signup> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "First Name *",
-                style: TextStyle(fontSize: 17),
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 50,
-              child: TextField(
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color.fromRGBO(224, 224, 224, 1),
-                  filled: true,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Middle Name ",
-                style: TextStyle(fontSize: 17),
-              ),
-            ),
-            SizedBox(height: 10),
-            Container(
-              height: 50,
-              child: TextField(
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color.fromRGBO(224, 224, 224, 1),
-                  filled: true,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "Last Name *",
+                "Name *",
                 style: TextStyle(fontSize: 17),
               ),
             ),
@@ -181,6 +141,35 @@ class _signupState extends State<signup> {
                   fillColor: Color.fromRGBO(224, 224, 224, 1),
                   filled: true,
                 ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                "Select Role for Sign Up *",
+                style: TextStyle(fontSize: 17),
+              ),
+            ),
+            SizedBox(height: 10,),
+            Align(
+              alignment: Alignment.center,
+              child: DropdownButton(
+                value: dropdownvalue,
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: items.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    dropdownvalue = newValue!;
+                  });
+                },
               ),
             ),
             SizedBox(
