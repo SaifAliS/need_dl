@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:need_dl/auth_functions.dart';
 import 'package:need_dl/supervisor_screen.dart';
 import 'package:need_dl/user_screen.dart';
 import 'package:need_dl/worker_screen.dart';
@@ -15,6 +16,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final passwordController = TextEditingController();
+  final emailController = TextEditingController();
   @override
   SingingCharacter? _character = SingingCharacter.User;
   Widget build(BuildContext context) {
@@ -130,15 +133,15 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text('Supervisor',
-                      style: TextStyle(
-                        fontSize: 16,
-                      )),
+                  Text(
+                    'Supervisor',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -150,6 +153,7 @@ class _LoginState extends State<Login> {
               Container(
                 height: 50,
                 child: TextField(
+                  controller: emailController,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     fillColor: Color.fromRGBO(224, 224, 224, 1),
@@ -171,6 +175,7 @@ class _LoginState extends State<Login> {
               Container(
                 height: 50,
                 child: TextField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
@@ -213,51 +218,60 @@ class _LoginState extends State<Login> {
               ),
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => signup()),
-                  );
+                  context,
+                  MaterialPageRoute(builder: (context) => signup()),
+                );
               },
             ),
             SizedBox(height: 10),
             GestureDetector(
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.09,
-                width: MediaQuery.of(context).size.width * 1.0,
-                color: Colors.amber[400],
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Login",
-                        style: TextStyle(fontSize: 23, color: Colors.white),
-                      ),
-                    ],
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.09,
+                  width: MediaQuery.of(context).size.width * 1.0,
+                  color: Colors.amber[400],
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Login",
+                          style: TextStyle(fontSize: 23, color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              onTap: () {
-                if (_character == SingingCharacter.User) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => user()),
-                  );
-                }
-                else if(_character == SingingCharacter.Worker){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => worker()),
-                  );
-                }
-                else{
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => supervisor()),
-                  );
-                }
-              },
-            ),
+                onTap: () async {
+                  final res = await loginAccount(
+                      email: emailController.text,
+                      password: passwordController.text);
+
+                  if (res == true) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (con) => user(),
+                      ),
+                    );
+                  }
+
+                  // if (_character == SingingCharacter.User) {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => user()),
+                  //   );
+                  // } else if (_character == SingingCharacter.Worker) {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => worker()),
+                  //   );
+                  // } else {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => supervisor()),
+                  //   );
+                }),
           ],
         ));
   }

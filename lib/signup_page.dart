@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:need_dl/auth_functions.dart';
+import 'package:need_dl/supervisor_screen.dart';
+import 'package:need_dl/user_screen.dart';
+import 'package:need_dl/worker_screen.dart';
 
 class signup extends StatefulWidget {
   const signup({Key? key}) : super(key: key);
@@ -7,9 +11,18 @@ class signup extends StatefulWidget {
   State<signup> createState() => _signupState();
 }
 
+// woekof@gailclm.coje
+// oiweoifwepoi
 class _signupState extends State<signup> {
-  String dropdownvalue = 'User';
-  var items = ['User', 'Worker', 'Supervisor'];
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+
+  String dropdownvalue = 'u';
+
+  var items = ['u', 's', 'w'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,6 +82,7 @@ class _signupState extends State<signup> {
             Container(
               height: 50,
               child: TextField(
+                controller: nameController,
                 decoration: const InputDecoration(
                   border: InputBorder.none,
                   fillColor: Color.fromRGBO(224, 224, 224, 1),
@@ -90,6 +104,7 @@ class _signupState extends State<signup> {
             Container(
               height: 50,
               child: TextField(
+                controller: phoneController,
                 decoration: const InputDecoration(
                   suffixIcon: Icon(Icons.phone),
                   border: InputBorder.none,
@@ -112,6 +127,7 @@ class _signupState extends State<signup> {
             Container(
               height: 50,
               child: TextField(
+                controller: emailController,
                 decoration: const InputDecoration(
                   suffixIcon: Icon(Icons.email),
                   border: InputBorder.none,
@@ -134,6 +150,7 @@ class _signupState extends State<signup> {
             Container(
               height: 50,
               child: TextField(
+                controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
                   suffixIcon: Icon(Icons.password),
@@ -153,7 +170,9 @@ class _signupState extends State<signup> {
                 style: TextStyle(fontSize: 17),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Align(
               alignment: Alignment.center,
               child: DropdownButton(
@@ -179,7 +198,27 @@ class _signupState extends State<signup> {
               height: 60,
               width: 150,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  bool isSuccess = await createAccount(
+                    name: nameController.text,
+                    email: emailController.text,
+                    password: passwordController.text,
+                    userType: dropdownvalue,
+                    phoneNumber: phoneController.text,
+                  );
+
+                  if (isSuccess) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (con) => dropdownvalue == 'u'
+                              ? user()
+                              : dropdownvalue == 'w'
+                                  ? worker()
+                                  : supervisor(),
+                        ));
+                  }
+                },
                 style: ButtonStyle(
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
